@@ -10,5 +10,4 @@ RUN npm run build
 
 FROM nginx:alpine
 COPY --from=build /src/dist /usr/share/nginx/html
-# Optional: small index fallback (often fine for SPA)
-RUN printf "try_files \$uri /index.html;" > /etc/nginx/conf.d/default.conf || true
+COPY nginx.conf /etc/nginx/conf.d/default.conf
