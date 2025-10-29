@@ -1,0 +1,22 @@
+version: "3.8"
+services:
+  relayexplorer:
+    build:
+      context: .
+    restart: unless-stopped
+    environment:
+      # Pass your relay URL to the app if it supports it; many explorers also allow choosing in the UI.
+      - RELAY_URL=${RELAY_URL}
+    networks: [dokploy-network]
+    expose:
+      - "80"
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.relayexplorer.rule=Host(`${EXPLORER_HOST}`)"
+      - "traefik.http.routers.relayexplorer.entrypoints=websecure"
+      - "traefik.http.routers.relayexplorer.tls=true"
+      - "traefik.http.services.relayexplorer.loadbalancer.server.port=80"
+
+networks:
+  dokploy-network:
+    external: true
