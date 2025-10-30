@@ -4,9 +4,6 @@ services:
     build:
       context: .
     restart: unless-stopped
-    environment:
-      # Pass your relay URL to the app if it supports it; many explorers also allow choosing in the UI.
-      - RELAY_URL=${RELAY_URL}
     networks: [dokploy-network]
     expose:
       - "80"
